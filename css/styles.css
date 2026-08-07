@@ -1,0 +1,430 @@
+/* =========================================================
+   NeverUmind — "Gig-flyer screenprint"
+   2-color screenprinted poster: orange + ink on warm paper
+   50s/60s rock & roll covers — Leiden
+   ========================================================= */
+
+:root {
+  --paper: #efe7d2;
+  --paper-2: #e6dcc2;
+  --ink: #1b1410;
+  --orange: #d2551b;
+  --orange-dim: #a8401a;
+  --cream: #f6efdc;
+  --muted: #6b5f4c;
+
+  --rule: rgba(27, 20, 16, 0.18);
+  --halftone: rgba(27, 20, 16, 0.05);
+  --header-bg: rgba(239, 231, 210, 0.9);
+
+  /* Always-dark band background for inverted panels (footer, feature, skip-link).
+     Stays dark in both themes so cream text keeps contrast when --ink flips. */
+  --band-bg: #1b1410;
+
+  --font-display: "Oswald", "Arial Narrow", sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-stamp: "Special Elite", "Courier New", monospace;
+
+  --maxw: 980px;
+}
+
+/* Dark mode = printed on dark stock (deep ink, orange stays) */
+:root[data-theme="dark"] {
+  --paper: #14100c;
+  --paper-2: #1c1611;
+  --ink: #ece3cc;
+  --cream: #f6efdc;
+  --muted: #a89a80;
+  --rule: rgba(236, 227, 204, 0.16);
+  --halftone: rgba(236, 227, 204, 0.04);
+  --header-bg: rgba(20, 16, 12, 0.88);
+  --band-bg: #0b0805; /* deep ink, neutral — stays dark in both themes */
+  color-scheme: dark;
+}
+:root[data-theme="light"] { color-scheme: light; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Halftone dot field — the screenprint tell */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(var(--halftone) 1px, transparent 1.4px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--orange); }
+a:hover { color: var(--orange); }
+::selection { background: var(--orange); color: var(--cream); }
+
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: absolute; top: -100px; left: 1rem; z-index: 200;
+  background: var(--band-bg); color: var(--cream);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-stamp); font-size: 0.8rem;
+  text-transform: uppercase; letter-spacing: 1px;
+  border: 0; transition: top 0.15s;
+}
+.skip-link:focus { top: 0.75rem; }
+
+/* ---------- Floating theme toggle ---------- */
+.theme-fab {
+  position: fixed; top: 1rem; right: 1rem; z-index: 100;
+  width: 42px; height: 42px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--header-bg); backdrop-filter: blur(8px);
+  border: 2px solid var(--ink); border-radius: 999px;
+  color: var(--ink); cursor: pointer; touch-action: manipulation;
+}
+.theme-fab:hover { color: var(--orange); border-color: var(--orange); }
+.theme-fab .icon { width: 18px; height: 18px; display: inline-block; }
+.theme-fab .icon-moon { display: none; }
+.theme-fab .icon-sun { display: inline-block; }
+[data-theme="dark"] .theme-fab .icon-sun { display: none; }
+[data-theme="dark"] .theme-fab .icon-moon { display: inline-block; }
+
+/* ---------- Floating language switch (mirrors theme-fab, top-left) ---------- */
+.lang-fab {
+  position: fixed; top: 1rem; left: 1rem; z-index: 100;
+  min-width: 42px; height: 42px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 0.7rem;
+  background: var(--header-bg); backdrop-filter: blur(8px);
+  border: 2px solid var(--ink); border-radius: 999px;
+  color: var(--ink);
+  font-family: var(--font-display); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem;
+  border-bottom: 2px solid var(--ink);
+  touch-action: manipulation;
+}
+.lang-fab:hover { color: var(--orange); border-color: var(--orange); }
+
+/* ---------- Layout ---------- */
+.container {
+  width: 100%; max-width: var(--maxw);
+  margin: 0 auto; padding: 0 1.5rem;
+  position: relative; z-index: 1;
+}
+
+.section { padding: 4.5rem 0; position: relative; z-index: 1; scroll-margin-top: 1.5rem; }
+
+.center { text-align: center; }
+
+/* Eyebrow stamp */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-stamp);
+  text-transform: uppercase; letter-spacing: 3px; font-size: 0.72rem;
+  color: var(--orange);
+  border: 2px solid var(--orange);
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Display heading */
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: 0.5px;
+}
+
+.section-title { font-size: clamp(2rem, 7vw, 3.4rem); margin-bottom: 1.5rem; }
+
+.lead { font-size: 1.12rem; max-width: 56ch; color: var(--muted); }
+.center .lead { margin-left: auto; margin-right: auto; }
+
+/* ---------- Marquee-bulb divider ---------- */
+.bulbs {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.6rem; margin: 0; padding: 0.5rem 0;
+  border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+  background: var(--paper-2);
+}
+.bulbs span {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 2px var(--ink);
+}
+
+/* ---------- Hero (showbill) ---------- */
+.hero {
+  padding: 4.5rem 0 3.5rem;
+  text-align: center;
+  position: relative; z-index: 1;
+  border-bottom: 3px solid var(--ink);
+}
+
+.hero-stage {
+  font-family: var(--font-stamp);
+  text-transform: uppercase; letter-spacing: 4px; font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+/* Misregistered-print echo on the wordmark (signature) */
+.bill {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+/* Atomic-age starburst behind the wordmark (mid-century ad graphic) */
+.bill::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 165%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: repeating-conic-gradient(var(--orange) 0deg 7deg, transparent 7deg 14deg);
+  opacity: 0.12;
+  z-index: 0;
+  -webkit-mask: radial-gradient(circle, #000 0%, #000 38%, transparent 74%);
+  mask: radial-gradient(circle, #000 0%, #000 38%, transparent 74%);
+  pointer-events: none;
+}
+.bill-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(3rem, 16vw, 8rem);
+  line-height: 0.88;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+  color: var(--ink);
+}
+.bill-name::before {
+  content: "NEVERUMIND";
+  position: absolute; left: 6px; top: 5px; z-index: 1;
+  color: var(--orange);
+  opacity: 0.5;
+}
+.bill-name .accent { color: var(--orange); }
+
+.hero-sub {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: clamp(0.9rem, 2.4vw, 1.2rem);
+  margin-top: 1rem;
+  color: var(--ink);
+}
+.hero-sub .dot { color: var(--orange); margin: 0 0.4rem; }
+
+.hero-tagline {
+  max-width: 44ch;
+  margin: 1.5rem auto 2rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.hero-cta { display: inline-flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+
+/* ---------- Rubber-stamp accents (ink impressions on the flyer) ---------- */
+.stamp {
+  display: inline-block;
+  font-family: var(--font-stamp);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.82rem;
+  color: var(--orange);
+  border: 2px solid var(--orange);
+  padding: 0.3rem 0.85rem;
+  transform: rotate(-6deg);
+  opacity: 0.9;
+  background: transparent;
+  border-radius: 2px;
+}
+.stamp--rot-r { transform: rotate(5deg); }
+.stamp--hero { margin: 1.4rem 0 0; }
+.feature .stamp { margin-bottom: 1.5rem; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;
+  padding: 0.85rem 1.75rem;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  transition: background 0.12s, color 0.12s;
+  touch-action: manipulation; cursor: pointer;
+  border-radius: 0;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn-primary { background: var(--orange); color: var(--cream); border-color: var(--orange); }
+.btn-primary:hover { background: var(--orange-dim); border-color: var(--orange-dim); color: var(--cream); }
+.btn--lg { font-size: 1rem; padding: 1rem 2.1rem; }
+
+/* ---------- Crew (showbill cast list) ---------- */
+.cast {
+  list-style: none;
+  margin-top: 2.5rem;
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+}
+.cast-item {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  padding: 1rem 0.25rem;
+  border-bottom: 2px solid var(--rule);
+}
+.cast-item:last-child { border-bottom: 0; }
+.cast-num {
+  font-family: var(--font-stamp);
+  font-size: 0.85rem;
+  color: var(--orange);
+  min-width: 2.2rem;
+}
+.cast-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.35rem;
+}
+.cast-leader {
+  flex: 1;
+  border-bottom: 3px dotted var(--rule);
+  transform: translateY(-0.3em);
+  min-width: 1.5rem; height: 0;
+}
+.cast-role {
+  font-family: var(--font-stamp);
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase; letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ---------- Two-up (Music | Shows) ---------- */
+.two-up {
+  display: grid; grid-template-columns: 1fr; gap: 2.5rem;
+  margin-top: 2rem;
+}
+.block-title {
+  font-family: var(--font-display);
+  font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  font-size: 1.6rem; margin-bottom: 0.5rem;
+}
+.block-title .dot { color: var(--orange); }
+.two-up p { color: var(--muted); max-width: 40ch; }
+.two-up .btn { margin-top: 1.25rem; }
+
+/* ---------- Feature band (Repertoire) ---------- */
+.feature {
+  background: var(--band-bg);
+  color: var(--cream);
+}
+.feature .section-title { color: var(--cream); }
+.feature .lead { color: rgba(246, 239, 220, 0.82); }
+.feature .eyebrow { color: var(--orange); border-color: var(--orange); }
+
+/* ---------- Contact (ticket block) ---------- */
+.ticket {
+  margin-top: 2rem;
+  border: 3px dashed var(--ink);
+  padding: 2.5rem 1.5rem;
+  background: var(--paper-2);
+}
+.ticket-title {
+  font-family: var(--font-display);
+  font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  margin-bottom: 0.5rem;
+}
+.ticket-sub { color: var(--muted); margin-bottom: 1.5rem; }
+.ticket-email {
+  display: inline-block;
+  font-family: var(--font-display); font-weight: 600;
+  letter-spacing: 1px; font-size: clamp(1.2rem, 4vw, 1.8rem);
+  color: var(--orange);
+  border-bottom: 3px solid var(--orange);
+  margin-bottom: 1.75rem;
+}
+.ticket-email:hover { color: var(--orange-dim); border-bottom-color: var(--orange-dim); }
+
+.social-list {
+  list-style: none;
+  display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+  margin-top: 1.5rem;
+}
+.social-list a {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-stamp); font-size: 0.78rem;
+  text-transform: uppercase; letter-spacing: 1px;
+  border-bottom: 2px solid var(--ink);
+  touch-action: manipulation;
+}
+.social-list a:hover { background: var(--orange); color: var(--cream); border-color: var(--orange); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--band-bg);
+  color: var(--cream);
+  padding: 2.5rem 0;
+  position: relative; z-index: 1;
+}
+.site-footer a { color: var(--cream); border-bottom: 2px solid var(--orange); }
+.site-footer a:hover { color: var(--orange); }
+.footer-grid {
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  text-align: center;
+}
+.footer-brand {
+  font-family: var(--font-display); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  font-size: 1.1rem;
+}
+.footer-brand .accent { color: var(--orange); }
+.footer-copy {
+  font-family: var(--font-stamp); font-size: 0.72rem;
+  opacity: 0.6;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 760px) {
+  .section { padding: 3rem 0; }
+  .cast-name { font-size: 1.15rem; }
+  .bill-name::before { left: 4px; top: 3px; }
+}
+
+@media (min-width: 720px) {
+  .two-up { grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+  .two-up > div + div { border-left: 2px solid var(--rule); padding-left: 3rem; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}

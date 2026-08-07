@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — NeverUmind</title>
+  <meta name="description" content="Pagina niet gevonden." />
+  <meta name="theme-color" content="#d2551b" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Special+Elite&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("neverumind-theme");
+        var theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+</head>
+<body id="top">
+  <a href="index.html" class="skip-link">Naar inhoud</a>
+  <button class="theme-fab" type="button" aria-label="Thema wijzigen" data-theme-toggle>
+    <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <a class="lang-fab" href="en/index.html" hreflang="en" aria-label="English">EN</a>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-stage">Fout · deze pagina bestaat niet</div>
+        <div class="bill">
+          <h1 class="bill-name"><span class="accent">404</span></h1>
+        </div>
+        <p class="hero-tagline">Deze plaat is niet in de selectie gevonden.</p>
+        <div class="hero-cta">
+          <a href="index.html" class="btn btn-primary">Terug naar huis</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">Never<span class="accent">U</span>mind</div>
+        <div class="footer-copy">© <span id="year"></span> NeverUMind · 50s &amp; 60s rock &amp; roll · Leiden</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="js/main.js"></script>
+</body>
+</html>
