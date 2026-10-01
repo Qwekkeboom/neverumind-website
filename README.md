@@ -4,14 +4,14 @@ Static, bilingual (Dutch/English) website for the band **NeverUmind** — 50s & 
 
 ## Design
 
-"Gig-flyer screenprint" — a two-colour screenprinted poster look: burnt-orange + ink on warm paper, with a halftone dot texture, showbill typography, and a misregistered-print echo on the wordmark. Fully independent of the sibling ANRS site (no shared layout, fonts, or palette).
+"Refined monochrome flyer" — a stripped-back 1950s–60s gig-poster look: solid black ink on light paper (`#f5f5f5`), white cards with 2px black borders, hard offset "letterpress" shadows, and Anton display type set between heavy rules with a ring of flat gray starburst rays behind it. Flat surfaces only — no textures, overlays or stamps. Fully independent of the sibling ANRS site (no shared layout, fonts, or palette).
 
-- **Light mode:** warm paper (`#efe7d2`) + ink (`#1b1410`) + orange (`#d2551b`)
-- **Dark mode:** printed on dark stock (`#14100c` + cream ink, orange stays)
-- **Fonts:** Oswald (condensed caps display), DM Sans (body), Special Elite (stamps/typewriter)
-- **Signature:** showbill hero with a misregistered-print echo (`.bill-name::before`) on the wordmark
+- **Palette:** black (`#0a0a0a`), white, light gray (`#f5f5f5`) — strictly no color
+- **Fonts:** Anton (condensed poster display, single offset shadow + knockout "U" in the wordmark), Helvetica Neue/Arial (body, kickers, labels)
+- **Bands:** feature / contact / footer sit on inverted black bands with white print
+- **Theme:** light only — no dark mode, no theme toggle
 
-The site has **no top header/nav bar** — only a floating theme toggle (top-right) and a footer with nav + language switch.
+The site has **no top header/nav bar** — only a floating language switch (top-left), plus a footer.
 
 ## Structure
 
@@ -19,8 +19,7 @@ The site has **no top header/nav bar** — only a floating theme toggle (top-rig
 index.html          # Dutch (default)
 en/index.html       # English (relative paths ../)
 404.html            # Custom 404 (served by GitHub Pages)
-css/styles.css      # Screenprint design system
-js/main.js          # Theme toggle + theme-color sync
+css/styles.css      # Refined monochrome flyer design system
 assets/favicon.svg  # "NUM" stamp (placeholder until a real logo exists)
 robots.txt
 sitemap.xml
@@ -39,6 +38,6 @@ GitHub Pages from `main`. Custom domain: `neverumind.nl`. Repo: `Qwekkeboom/neve
 
 - `assets/favicon.svg` — replace with a real logo once the band has one; update OG references.
 - `booking@neverumind.nl` — replace with a real booking email (in `index.html`, `en/index.html`).
-- Social links (Instagram / Facebook / Spotify / YouTube / TikTok) — point to real profiles (footer + contact).
+- Social links (Instagram / YouTube) — point to real profiles (contact section).
 - Music section — wire in demo embeds once the cover recordings are uploaded (Bandcamp recommended).
 - Repertoire — publish a real setlist once finalised.
